@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.tree import plot_tree
 
 
-def main_function(path='CICIDS2017_sample.csv', criteriontype="entropy", trainSize=0.67, testSize=0.33):
+def main_function(path, criteriontype, trainSize, testSize, printOption=False):
     df = pd.read_csv(path)
     X = df.drop('Label', axis=1).to_numpy()
     y = df['Label'].to_numpy()
@@ -18,7 +18,24 @@ def main_function(path='CICIDS2017_sample.csv', criteriontype="entropy", trainSi
     scores10 = cross_val_score(clf, X, y, cv=10)
     scores5 = cross_val_score(clf, X, y, cv=5)
     scores3 = cross_val_score(clf, X, y, cv=3)
-    plt.figure(figsize=(100, 100), facecolor='gray')
-    plot_tree(clf, filled=True, feature_names=z, rounded=True)
-    plt.savefig('result.pdf')
+    if printOption:
+        plt.figure(figsize=(30, 30), facecolor='white')
+        plot_tree(clf, filled=True, feature_names=z, rounded=True)
+        plt.savefig('Result.pdf')
+
     return (accuracy * 100), scores10.mean(), scores5.mean(), scores3.mean()
+
+
+def indvisual_scan(pathToTarin, criteriontype, patToTest):
+    df = pd.read_csv(pathToTarin)
+    X = df.drop('Label', axis=1).to_numpy()
+    y = df['Label'].to_numpy()
+    z = df.columns
+    clf = tree.DecisionTreeClassifier(max_features=60, max_depth=10, criterion=criteriontype)
+    clf.fit(X, y)
+    df2 = pd.read_csv(patToTest)
+    X2 = df2.to_numpy()
+    return clf.predict(X2)
+
+
+
