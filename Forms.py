@@ -1,4 +1,4 @@
-from tkinter import messagebox, ttk
+from tkinter import messagebox
 import mainFile
 import tkinter as tk
 
@@ -7,7 +7,7 @@ def Evaluate_System():
     def check_input():
         if pathText.get() == '' or criteriontypeText.get() == '' or float(trainText.get()) == 0 or float(
                 trainText.get()) < 0 or float(trainText.get()) > 0.99 or float(testText.get()) == 0 or float(
-            testText.get()) < 0 or float(testText.get()) > 0.99:
+                testText.get()) < 0 or float(testText.get()) > 0.99:
             messagebox.showinfo("ERROR", "invalid Or Messing  Inputs")
 
         else:
@@ -125,7 +125,7 @@ def Test_Individual_Sample():
 
             # place
             header_label3.pack(anchor="center", pady=10, side='top')
-            predections_label.pack(pady=20,anchor="nw")
+            predections_label.pack(pady=20, anchor="nw")
 
             root3.mainloop()
 
